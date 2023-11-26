@@ -15,7 +15,7 @@ else:
   data_list = data_to_learn.to_dict(orient="records")  
 
 # ------- generate new random french word --------
-def generate_french_word():
+def generate_word():
   global current_word,flip_timer
   window.after_cancel(flip_timer)
   current_word = random.choice(data_list)
@@ -30,7 +30,7 @@ def remove_data():
   data_list.remove(current_word)
   words_to_learn = pandas.DataFrame(data_list)
   words_to_learn.to_csv("data/words_to_learn.csv",index=False) 
-  generate_french_word()
+  generate_word()
    
 # ---- flip the card ----
 def flip_card():
@@ -60,12 +60,12 @@ word  = canvas.create_text(400,263,text="",font=("Arial",60,"bold"))
 canvas.grid(row=0 ,column= 0 ,columnspan= 2)
 
 # --- Buttons ----
-wrongButton = Button(image=wrongImage,highlightthickness=0,command=generate_french_word)
+wrongButton = Button(image=wrongImage,highlightthickness=0,command=generate_word)
 wrongButton.grid(row=1 ,column=0)
 rightButton = Button(image=rightImage,highlightthickness=0,command=remove_data)
 rightButton.grid(row = 1 , column=1)
 
 
-generate_french_word()
+generate_word()
 
 window.mainloop()
